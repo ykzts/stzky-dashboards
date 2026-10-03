@@ -20,7 +20,7 @@
 ## 変更の流れ
 
 1. ブランチを作成して JSON を編集する (または Grafana の UI で編集してブランチに保存する)
-2. `python3 scripts/check-dashboards.py` で静的チェックを行う
+2. `python3 .github/scripts/check-dashboards.py` で静的チェックを行う
 3. Pull Request を作成する。CI (`Check / Dashboards`) が同じチェックを実行します
 4. マージ後、Git Sync が Grafana に反映します
 

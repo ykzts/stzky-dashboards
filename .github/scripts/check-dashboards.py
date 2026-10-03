@@ -9,7 +9,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 GRID_WIDTH = 24
 # Data source UIDs on graph.stzky.com, plus Grafana's built-in ones.
 KNOWN_DATASOURCES = {

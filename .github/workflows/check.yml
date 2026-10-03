@@ -21,4 +21,4 @@ jobs:
           persist-credentials: false
 
       - name: Check dashboards
-        run: python3 scripts/check-dashboards.py
+        run: python3 .github/scripts/check-dashboards.py

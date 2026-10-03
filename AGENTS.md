@@ -10,7 +10,7 @@
 
 ## 検証
 
-- 静的チェック: `python3 scripts/check-dashboards.py`
+- 静的チェック: `python3 .github/scripts/check-dashboards.py`
 - クエリを追加・変更した場合は、Grafana の API (`/api/datasources/proxy/uid/<uid>/...`) で Prometheus と Loki に対して実行し、エラーがなく値が返ることを確認する。`$__rate_interval` などの Grafana 変数は具体的な値に置き換えて実行する
 - Git Sync での読み込みは、ブランチを push したあと `/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories/<repository>/files/<path>?ref=<branch>` で確認できる
 
