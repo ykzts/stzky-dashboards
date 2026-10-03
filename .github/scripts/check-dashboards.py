@@ -23,10 +23,16 @@ KNOWN_DATASOURCES = {
 
 
 def panels_of(dashboard):
+    """Yield (panel, visible) for every panel, including those inside collapsed rows.
+
+    A collapsed row keeps its panels in `panels` with the positions they take when
+    the row is expanded, so they can share cells with the panels below the row and
+    are left out of the overlap check.
+    """
     for panel in dashboard.get("panels", []):
-        yield panel
-        # A collapsed row keeps its panels inside it.
-        yield from panel.get("panels", [])
+        yield panel, True
+        for child in panel.get("panels", []):
+            yield child, False
 
 
 def datasource_uids(panel):
@@ -49,7 +55,7 @@ def check(path, dashboard, seen_uids, seen_titles):
         errors.append(f"{path}: write stzky in lowercase in the title")
 
     ids, cells = set(), {}
-    for panel in panels_of(dashboard):
+    for panel, visible in panels_of(dashboard):
         name = f"{path}: panel {panel.get('title')!r}"
         if "Stzky" in (panel.get("title") or ""):
             errors.append(f"{name}: write stzky in lowercase")
@@ -59,6 +65,8 @@ def check(path, dashboard, seen_uids, seen_titles):
         for ds in datasource_uids(panel):
             if ds not in KNOWN_DATASOURCES and not ds.startswith("$"):
                 errors.append(f"{name}: unknown data source uid {ds!r}")
+        if not visible:
+            continue
         grid = panel.get("gridPos", {})
         x, y, w, h = (grid.get(k, 0) for k in ("x", "y", "w", "h"))
         if x + w > GRID_WIDTH:
