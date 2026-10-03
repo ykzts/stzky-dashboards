@@ -1551,21 +1551,496 @@
       }
     },
     {
-      "type": "row",
+      "type": "timeseries",
       "id": 25,
+      "title": "WAN 通信量 (LAN2)",
+      "description": "上向きが受信 (ダウンロード)、下向きが送信 (アップロード)。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 47
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "rate(ifHCInOctets{job=\"snmp_if\",ifDescr=\"LAN2\"}[5m]) * 8",
+          "refId": "A",
+          "legendFormat": "受信"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "rate(ifHCOutOctets{job=\"snmp_if\",ifDescr=\"LAN2\"}[5m]) * 8",
+          "refId": "B",
+          "legendFormat": "送信"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "axisBorderShow": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "送信"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "id": 26,
+      "title": "LAN 通信量 (LAN1)",
+      "description": "ルーターから見た向き。上向きが LAN からの受信、下向きが LAN への送信。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 47
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "rate(ifHCInOctets{job=\"snmp_if\",ifDescr=\"LAN1\"}[5m]) * 8",
+          "refId": "A",
+          "legendFormat": "受信"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "rate(ifHCOutOctets{job=\"snmp_if\",ifDescr=\"LAN1\"}[5m]) * 8",
+          "refId": "B",
+          "legendFormat": "送信"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "axisBorderShow": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "送信"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      }
+    },
+    {
+      "type": "state-timeline",
+      "id": 27,
+      "title": "リンク状態",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 16,
+        "x": 0,
+        "y": 55
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "label_replace(ifOperStatus{job=\"snmp_if\",ifDescr=~\"LAN[123]\"}, \"ifDescr\", \"WAN (LAN2)\", \"ifDescr\", \"LAN2\")",
+          "refId": "A",
+          "legendFormat": "{{ifDescr}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "UP",
+                  "color": "green",
+                  "index": 0
+                },
+                "2": {
+                  "text": "DOWN",
+                  "color": "red",
+                  "index": 1
+                }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": 3,
+                "to": 7,
+                "result": {
+                  "text": "不明",
+                  "color": "orange",
+                  "index": 2
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "lineWidth": 0
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showValue": "never",
+        "mergeValues": true,
+        "alignValue": "left",
+        "rowHeight": 0.8,
+        "legend": {
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "id": 28,
+      "title": "エラーパケット (直近 1 時間)",
+      "description": "LAN1〜LAN3 (WAN を含む) で送受信に失敗したパケットの数。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 55
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(increase(ifInErrors{job=\"snmp_if\",ifDescr=~\"LAN[123]\"}[1h]) + increase(ifOutErrors{job=\"snmp_if\",ifDescr=~\"LAN[123]\"}[1h]))",
+          "refId": "A",
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "area",
+        "textMode": "value",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      }
+    },
+    {
+      "type": "row",
+      "id": 29,
+      "title": "Immich",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 62
+      },
+      "panels": []
+    },
+    {
+      "type": "timeseries",
+      "id": 30,
+      "title": "処理中のジョブ (キュー別)",
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 63
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum by (queue) (label_replace({__name__=~\"immich_queues_.+_active\",job=\"immich_microservices\"}, \"queue\", \"$1\", \"__name__\", \"immich_queues_(.+)_active\"))",
+          "refId": "A",
+          "legendFormat": "{{queue}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "axisBorderShow": false
+          },
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "id": 31,
+      "title": "完了したジョブ / 分",
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 63
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "60 * sum(rate({__name__=~\"immich_jobs_.+_success_total\",job=\"immich_microservices\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "axisBorderShow": false
+          },
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "showLegend": false,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      }
+    },
+    {
+      "type": "row",
+      "id": 32,
       "title": "ログ",
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 70
       },
       "panels": []
     },
     {
       "type": "timeseries",
-      "id": 26,
+      "id": 33,
       "title": "エラーログ件数",
       "description": "error / fatal / panic を含むログ行の数 (大文字小文字を区別しない)。",
       "datasource": {
@@ -1576,7 +2051,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 48
+        "y": 71
       },
       "targets": [
         {
@@ -1631,7 +2106,7 @@
     },
     {
       "type": "bargauge",
-      "id": 27,
+      "id": 34,
       "title": "エラーログの多いサービス (表示期間)",
       "description": "",
       "datasource": {
@@ -1642,7 +2117,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 48
+        "y": 71
       },
       "targets": [
         {
@@ -1697,7 +2172,7 @@
     },
     {
       "type": "logs",
-      "id": 28,
+      "id": 35,
       "title": "直近のエラーログ",
       "datasource": {
         "type": "loki",
@@ -1707,7 +2182,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 79
       },
       "targets": [
         {
@@ -1733,20 +2208,20 @@
     },
     {
       "type": "row",
-      "id": 29,
+      "id": 36,
       "title": "監視基盤",
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 89
       },
       "panels": []
     },
     {
       "type": "stat",
-      "id": 30,
+      "id": 37,
       "title": "アクティブ系列数",
       "description": "",
       "datasource": {
@@ -1757,7 +2232,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 67
+        "y": 90
       },
       "targets": [
         {
@@ -1807,7 +2282,7 @@
     },
     {
       "type": "stat",
-      "id": 31,
+      "id": 38,
       "title": "取り込みサンプル / 秒",
       "description": "",
       "datasource": {
@@ -1818,7 +2293,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 67
+        "y": 90
       },
       "targets": [
         {
@@ -1869,7 +2344,7 @@
     },
     {
       "type": "stat",
-      "id": 32,
+      "id": 39,
       "title": "TSDB サイズ",
       "description": "",
       "datasource": {
@@ -1880,7 +2355,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 67
+        "y": 90
       },
       "targets": [
         {
@@ -1930,7 +2405,7 @@
     },
     {
       "type": "stat",
-      "id": 33,
+      "id": 40,
       "title": "保持しているデータの期間",
       "description": "保持期間の設定は 60 日。",
       "datasource": {
@@ -1941,7 +2416,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 67
+        "y": 90
       },
       "targets": [
         {
