@@ -7,7 +7,7 @@
 | ファイル | タイトル | 内容 |
 | --- | --- | --- |
 | `stzky-overview.json` | stzky overview | 自宅サーバーと周辺機器の概況 (監視対象の状態、ホスト、コンテナ、ルーター、ログ、監視基盤) |
-| `immich.json` | immich | 写真・動画ライブラリ (Immich) の状態 |
+| `immich.json` | immich | 写真と動画のライブラリ (Immich) の状態 |
 
 データの収集設定 (Prometheus、Alloy、snmp_exporter など) は [ykzts/stzky-infra](https://github.com/ykzts/stzky-infra) の `services/grafana` で管理しています。
 
