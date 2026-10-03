@@ -65,12 +65,15 @@ def check(path, dashboard, seen_uids, seen_titles):
         for ds in datasource_uids(panel):
             if ds not in KNOWN_DATASOURCES and not ds.startswith("$"):
                 errors.append(f"{name}: unknown data source uid {ds!r}")
-        if not visible:
-            continue
         grid = panel.get("gridPos", {})
         x, y, w, h = (grid.get(k, 0) for k in ("x", "y", "w", "h"))
+        if x < 0 or y < 0 or w <= 0 or h <= 0:
+            errors.append(f"{name}: invalid gridPos {grid}")
+            continue
         if x + w > GRID_WIDTH:
             errors.append(f"{name}: extends past column {GRID_WIDTH}")
+        if not visible:
+            continue
         for row in range(y, y + h):
             for col in range(x, x + w):
                 if (col, row) in cells:
