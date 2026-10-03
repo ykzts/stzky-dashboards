@@ -1,0 +1,27 @@
+{
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
+  },
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1.1.0": {
+      "version": "latest"
+    }
+  },
+  "mounts": [
+    "source=stzky-dashboards-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+    "source=stzky-dashboards-gh-config-${devcontainerId},target=/home/vscode/.config/gh,type=volume"
+  ],
+  "name": "stzky dashboards",
+  "postCreateCommand": "./scripts/bootstrap.sh"
+}
