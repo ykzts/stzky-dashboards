@@ -19,6 +19,14 @@
   "liveNow": false,
   "links": [
     {
+      "title": "immich",
+      "type": "link",
+      "url": "/d/immich",
+      "targetBlank": false,
+      "icon": "dashboard",
+      "tooltip": "写真ライブラリ (Immich) の詳細"
+    },
+    {
       "title": "Node Exporter Full",
       "type": "link",
       "url": "/d/rYdddlPWk",
@@ -1882,7 +1890,7 @@
     {
       "type": "row",
       "id": 29,
-      "title": "Immich",
+      "title": "ログ",
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1895,152 +1903,6 @@
     {
       "type": "timeseries",
       "id": 30,
-      "title": "処理中のジョブ (キュー別)",
-      "description": "",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "eee1hnw7bw9oge"
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 63
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "eee1hnw7bw9oge"
-          },
-          "expr": "sum by (queue) (label_replace({__name__=~\"immich_queues_.+_active\",job=\"immich_microservices\"}, \"queue\", \"$1\", \"__name__\", \"immich_queues_(.+)_active\"))",
-          "refId": "A",
-          "legendFormat": "{{queue}}"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "palette-classic-by-name"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "lineWidth": 2,
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "showPoints": "never",
-            "spanNulls": false,
-            "axisSoftMin": 0,
-            "stacking": {
-              "mode": "normal",
-              "group": "A"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            },
-            "axisBorderShow": false
-          },
-          "min": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        },
-        "legend": {
-          "showLegend": true,
-          "displayMode": "list",
-          "placement": "bottom",
-          "calcs": []
-        }
-      }
-    },
-    {
-      "type": "timeseries",
-      "id": 31,
-      "title": "完了したジョブ / 分",
-      "description": "",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "eee1hnw7bw9oge"
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 63
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "eee1hnw7bw9oge"
-          },
-          "expr": "60 * sum(rate(label_replace({__name__=~\"immich_jobs_.+_success_total\",job=\"immich_microservices\"}, \"metric\", \"$1\", \"__name__\", \"(.+)\")[5m:]))",
-          "refId": "A",
-          "legendFormat": "__auto"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "lineWidth": 2,
-            "fillOpacity": 8,
-            "gradientMode": "none",
-            "showPoints": "never",
-            "spanNulls": false,
-            "axisSoftMin": 0,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            },
-            "axisBorderShow": false
-          },
-          "min": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        },
-        "legend": {
-          "showLegend": false,
-          "displayMode": "list",
-          "placement": "bottom",
-          "calcs": []
-        }
-      }
-    },
-    {
-      "type": "row",
-      "id": 32,
-      "title": "ログ",
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 70
-      },
-      "panels": []
-    },
-    {
-      "type": "timeseries",
-      "id": 33,
       "title": "エラーログ件数",
       "description": "error / fatal / panic を含むログ行の数 (大文字小文字を区別しない)。",
       "datasource": {
@@ -2051,7 +1913,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 71
+        "y": 63
       },
       "targets": [
         {
@@ -2106,7 +1968,7 @@
     },
     {
       "type": "bargauge",
-      "id": 34,
+      "id": 31,
       "title": "エラーログの多いサービス (表示期間)",
       "description": "",
       "datasource": {
@@ -2117,7 +1979,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 71
+        "y": 63
       },
       "targets": [
         {
@@ -2172,7 +2034,7 @@
     },
     {
       "type": "logs",
-      "id": 35,
+      "id": 32,
       "title": "直近のエラーログ",
       "datasource": {
         "type": "loki",
@@ -2182,7 +2044,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 71
       },
       "targets": [
         {
@@ -2208,20 +2070,20 @@
     },
     {
       "type": "row",
-      "id": 36,
+      "id": 33,
       "title": "監視基盤",
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 89
+        "y": 81
       },
       "panels": []
     },
     {
       "type": "stat",
-      "id": 37,
+      "id": 34,
       "title": "アクティブ系列数",
       "description": "",
       "datasource": {
@@ -2232,7 +2094,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 90
+        "y": 82
       },
       "targets": [
         {
@@ -2282,7 +2144,7 @@
     },
     {
       "type": "stat",
-      "id": 38,
+      "id": 35,
       "title": "取り込みサンプル / 秒",
       "description": "",
       "datasource": {
@@ -2293,7 +2155,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 90
+        "y": 82
       },
       "targets": [
         {
@@ -2344,7 +2206,7 @@
     },
     {
       "type": "stat",
-      "id": 39,
+      "id": 36,
       "title": "TSDB サイズ",
       "description": "",
       "datasource": {
@@ -2355,7 +2217,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 90
+        "y": 82
       },
       "targets": [
         {
@@ -2405,7 +2267,7 @@
     },
     {
       "type": "stat",
-      "id": 40,
+      "id": 37,
       "title": "保持しているデータの期間",
       "description": "保持期間の設定は 60 日。",
       "datasource": {
@@ -2416,7 +2278,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 90
+        "y": 82
       },
       "targets": [
         {
