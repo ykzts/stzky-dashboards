@@ -1,7 +1,7 @@
 {
   "uid": "immich",
   "title": "immich",
-  "description": "写真・動画ライブラリ (Immich) のジョブ、処理時間、リソース、ストレージ、ライブラリ、ログ。",
+  "description": "写真・動画ライブラリ (Immich) の状態。",
   "tags": [
     "immich"
   ],
