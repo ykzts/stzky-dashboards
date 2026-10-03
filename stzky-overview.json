@@ -1,6 +1,6 @@
 {
   "uid": "stzky-overview",
-  "title": "Stzky Overview",
+  "title": "stzky overview",
   "description": "自宅サーバー (camellya) とその周辺の監視対象を 1 画面で見るための概況ダッシュボード。",
   "tags": [
     "overview"
@@ -51,7 +51,7 @@
       "type": "stat",
       "id": 1,
       "title": "停止中の監視対象",
-      "description": "Prometheus の up が 0 のスクレイプ対象の数。内訳は下の「監視対象の状態」を参照。",
+      "description": "応答していない監視対象の数。内訳は下の「監視対象の状態」を参照。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -328,7 +328,7 @@
       "type": "stat",
       "id": 5,
       "title": "/ 空き容量",
-      "description": "15% 未満が 10 分続くと Grafana アラート (Root filesystem low free space) が発火する。",
+      "description": "15% 未満が 10 分続くとアラート (Root filesystem low free space) が発火する。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -398,7 +398,7 @@
       "type": "stat",
       "id": 6,
       "title": "/mnt/media 空き容量",
-      "description": "5% 未満が 10 分続くと Grafana アラート (Media filesystem low free space) が発火する。",
+      "description": "5% 未満が 10 分続くとアラート (Media filesystem low free space) が発火する。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -472,7 +472,7 @@
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
       },
-      "description": "スクレイプ対象ごとの up。Alloy 経由で取り込んでいる対象 (caddy, immich_*) も含む。",
+      "description": "監視対象ごとの応答状態。",
       "gridPos": {
         "h": 8,
         "w": 16,
@@ -1068,7 +1068,7 @@
     {
       "type": "row",
       "id": 16,
-      "title": "コンテナ (cAdvisor)",
+      "title": "コンテナ",
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1553,7 +1553,7 @@
     {
       "type": "row",
       "id": 25,
-      "title": "ログ (Loki)",
+      "title": "ログ",
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1734,7 +1734,7 @@
     {
       "type": "row",
       "id": 29,
-      "title": "監視基盤 (Prometheus)",
+      "title": "監視基盤",
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1932,7 +1932,7 @@
       "type": "stat",
       "id": 33,
       "title": "保持しているデータの期間",
-      "description": "保持期間の設定は 60 日 (--storage.tsdb.retention.time)。",
+      "description": "保持期間の設定は 60 日。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
