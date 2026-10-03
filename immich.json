@@ -1195,7 +1195,7 @@
       "type": "stat",
       "id": 24,
       "title": "写真",
-      "description": "Administration → Server Stats の写真の数。5 分ごとに取得する。",
+      "description": "Administration → Server Stats と同じ値。5 分ごとに取得。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -1248,7 +1248,7 @@
       "type": "stat",
       "id": 25,
       "title": "動画",
-      "description": "Administration → Server Stats の動画の数。5 分ごとに取得する。",
+      "description": "Administration → Server Stats と同じ値。5 分ごとに取得。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -1301,7 +1301,7 @@
       "type": "stat",
       "id": 26,
       "title": "ライブラリの容量",
-      "description": "写真と動画の合計サイズ (Administration → Server Stats の使用量)。サムネイルなどの生成物は含まない。",
+      "description": "写真と動画の元ファイルの合計。サムネイルなどの生成物は含まない。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -1353,8 +1353,8 @@
     {
       "type": "stat",
       "id": 27,
-      "title": "アセットの増減 (表示期間)",
-      "description": "表示期間の始まりと現在の写真・動画の数の差。削除があると減る。期間の始まりにデータがないときは表示されない。",
+      "title": "写真と動画の増減 (表示期間)",
+      "description": "表示期間の始めとの差。削除すると減る。期間の始めにデータがなければ空になる。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -1407,7 +1407,7 @@
       "type": "timeseries",
       "id": 28,
       "title": "容量の推移",
-      "description": "写真と動画を積み上げて表示する。",
+      "description": "写真と動画の積み上げ。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
@@ -1481,8 +1481,8 @@
     {
       "type": "timeseries",
       "id": 29,
-      "title": "アセット数の推移",
-      "description": "写真と動画を積み上げて表示する。",
+      "title": "件数の推移",
+      "description": "写真と動画の積み上げ。",
       "datasource": {
         "type": "prometheus",
         "uid": "eee1hnw7bw9oge"
