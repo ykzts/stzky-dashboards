@@ -1,7 +1,7 @@
 {
   "uid": "immich",
   "title": "immich",
-  "description": "写真・動画ライブラリ (Immich) のジョブ、処理時間、リソース、ストレージ、ログ。",
+  "description": "写真と動画のライブラリ (Immich) の状態。",
   "tags": [
     "immich"
   ],
@@ -1180,6 +1180,381 @@
     },
     {
       "type": "row",
+      "id": 23,
+      "title": "ライブラリ",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "panels": []
+    },
+    {
+      "type": "stat",
+      "id": 24,
+      "title": "写真",
+      "description": "Administration → Server Stats と同じ値。5 分ごとに取得。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 42
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_assets{job=\"immich_statistics\",type=\"photo\"}[10m]))",
+          "refId": "A",
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      }
+    },
+    {
+      "type": "stat",
+      "id": 25,
+      "title": "動画",
+      "description": "Administration → Server Stats と同じ値。5 分ごとに取得。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 42
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_assets{job=\"immich_statistics\",type=\"video\"}[10m]))",
+          "refId": "A",
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      }
+    },
+    {
+      "type": "stat",
+      "id": 26,
+      "title": "ライブラリの容量",
+      "description": "写真と動画の元ファイルの合計。サムネイルなどの生成物は含まない。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 42
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_usage_bytes{job=\"immich_statistics\"}[10m]))",
+          "refId": "A",
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      }
+    },
+    {
+      "type": "stat",
+      "id": 27,
+      "title": "写真と動画の増減 (表示期間)",
+      "description": "表示期間の始めとの差。削除すると減る。期間の始めにデータがなければ空になる。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 42
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_assets{job=\"immich_statistics\"}[10m])) - sum(last_over_time(immich_assets{job=\"immich_statistics\"}[10m] offset $__range))",
+          "refId": "A",
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "text"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "none",
+        "graphMode": "none",
+        "textMode": "value",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "wideLayout": true,
+        "showPercentChange": false
+      }
+    },
+    {
+      "type": "timeseries",
+      "id": 28,
+      "title": "容量の推移",
+      "description": "写真と動画の積み上げ。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 46
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_usage_bytes{job=\"immich_statistics\",type=\"photo\"}[10m]))",
+          "refId": "A",
+          "legendFormat": "写真"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_usage_bytes{job=\"immich_statistics\",type=\"video\"}[10m]))",
+          "refId": "B",
+          "legendFormat": "動画"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "axisBorderShow": false
+          },
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "id": 29,
+      "title": "件数の推移",
+      "description": "写真と動画の積み上げ。",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eee1hnw7bw9oge"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 46
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_assets{job=\"immich_statistics\",type=\"photo\"}[10m]))",
+          "refId": "A",
+          "legendFormat": "写真"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eee1hnw7bw9oge"
+          },
+          "expr": "sum(last_over_time(immich_assets{job=\"immich_statistics\",type=\"video\"}[10m]))",
+          "refId": "B",
+          "legendFormat": "動画"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2,
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "axisBorderShow": false
+          },
+          "min": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom",
+          "calcs": []
+        }
+      }
+    },
+    {
+      "type": "row",
       "id": 20,
       "title": "ログ",
       "collapsed": false,
@@ -1187,7 +1562,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 54
       },
       "panels": []
     },
@@ -1204,7 +1579,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 55
       },
       "targets": [
         {
@@ -1268,7 +1643,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 63
       },
       "targets": [
         {
